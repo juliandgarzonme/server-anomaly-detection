@@ -80,6 +80,9 @@ jobs:
     steps:
       - name: Checkout código
         uses: actions/checkout@v4
+        
+      - name: Instalar dependencias para dataset
+        run: pip install pandas numpy
 
       - name: Preparar dataset para build
         run: |
