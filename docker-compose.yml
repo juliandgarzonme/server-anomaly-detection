@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  anomaly-api:
+    build:
+      context: .
+      target: api           # usa solo el stage final (sin reentrenar)
+    image: server-anomaly-api:latest
+    container_name: anomaly-api
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_PATH=models/isolation_forest.pkl
+      - META_PATH=models/metadata.json
+    volumes:
+      # Montar el directorio de modelos para persistencia y recarga sin rebuild
+      - ./models:/app/models:ro
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    restart: unless-stopped
+
+  # Servicio de entrenamiento — se ejecuta una vez y termina
+  trainer:
+    build:
+      context: .
+      target: trainer
+    image: server-anomaly-trainer:latest
+    container_name: anomaly-trainer
+    volumes:
+      - ./data:/app/data:ro
+      - ./models:/app/models      # escribe el modelo aquí
+    profiles:
+      - train                     # solo se ejecuta con: docker compose --profile train up trainer
+    command: >
+      python scripts/train.py
+        --data data/intel_dataset.csv
+        --contamination 0.05
+        --n_estimators 200
+        --random_state 42
