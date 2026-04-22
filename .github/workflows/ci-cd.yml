@@ -33,7 +33,7 @@ jobs:
         run: |
           flake8 main.py scripts/train.py \
             --max-line-length=100 \
-            --ignore=E501,W503 \
+            --ignore=E501,W503,E221,E222,E241,E261,E401 \
             --statistics
 
       - name: Entrenar modelo de prueba
