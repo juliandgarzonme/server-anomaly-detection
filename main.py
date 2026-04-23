@@ -8,7 +8,6 @@ Endpoints:
     GET  /model/info       → metadatos del modelo cargado
 """
 
-import json
 import logging
 import os
 from contextlib import asynccontextmanager
@@ -44,7 +43,6 @@ def load_model() -> None:
     # El artefacto puede ser un dict {model, scaler, features} o un pipeline directo
     if isinstance(artefacto, dict):
         from sklearn.pipeline import Pipeline
-        from sklearn.preprocessing import StandardScaler
         modelo  = artefacto["model"]
         scaler  = artefacto["scaler"]
         # Reconstruir pipeline compatible con la API
