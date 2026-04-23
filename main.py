@@ -37,17 +37,26 @@ state: dict = {"pipeline": None, "metadata": None}
 
 
 def load_model() -> None:
-    """Carga el pipeline (scaler + modelo) y los metadatos."""
     if not os.path.exists(MODEL_PATH):
-        log.warning(f"Modelo no encontrado en {MODEL_PATH}. Ejecuta scripts/train.py primero.")
+        log.warning(f"Modelo no encontrado en {MODEL_PATH}.")
         return
-    state["pipeline"] = joblib.load(MODEL_PATH)
-    log.info(f"Modelo cargado: {MODEL_PATH}")
-
-    if os.path.exists(META_PATH):
-        with open(META_PATH) as f:
-            state["metadata"] = json.load(f)
-        log.info(f"Metadatos cargados: versión {state['metadata'].get('version')}")
+    artefacto = joblib.load(MODEL_PATH)
+    # El artefacto puede ser un dict {model, scaler, features} o un pipeline directo
+    if isinstance(artefacto, dict):
+        from sklearn.pipeline import Pipeline
+        from sklearn.preprocessing import StandardScaler
+        modelo  = artefacto["model"]
+        scaler  = artefacto["scaler"]
+        # Reconstruir pipeline compatible con la API
+        pipeline = Pipeline([
+            ("scaler", scaler),
+            ("model",  modelo),
+        ])
+        state["pipeline"] = pipeline
+        log.info(f"Artefacto cargado como dict — modelo: {type(modelo).__name__}")
+    else:
+        state["pipeline"] = artefacto
+    log.info(f"Modelo listo: {MODEL_PATH}")
 
 
 # ── Lifespan ─────────────────────────────────────────────────────────

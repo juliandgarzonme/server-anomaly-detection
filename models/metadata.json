@@ -1,0 +1,50 @@
+{
+  "version": "v20260423_005922",
+  "trained_at": "2026-04-23T00:59:22.391416+00:00",
+  "model_selected": "LOF",
+  "dataset": {
+    "records_train": 2081,
+    "records_anomalies": 100,
+    "features": [
+      "cpu_usage",
+      "memory_usage",
+      "network_traffic",
+      "power_consumption",
+      "execution_time",
+      "energy_efficiency"
+    ],
+    "preprocessing": "SimpleImputer(median) + StandardScaler"
+  },
+  "hyperparameters": {
+    "n_neighbors": 20,
+    "contamination": 0.05,
+    "novelty": true
+  },
+  "metrics": {
+    "tasa_deteccion_pct": 99.0,
+    "falsos_positivos_pct": 4.13,
+    "precision_pct": 53.51,
+    "train_time_s": 0.0727,
+    "inf_ms_per_record": 0.0688
+  },
+  "comparison": {
+    "IF": {
+      "deteccion": 92.0,
+      "fp": 5.0
+    },
+    "LOF": {
+      "deteccion": 99.0,
+      "fp": 4.13
+    },
+    "SVM": {
+      "deteccion": 94.0,
+      "fp": 4.9
+    }
+  },
+  "detection_by_type": {
+    "CPU/Mem Saturaci\u00f3n": 24,
+    "Network Spike": 25,
+    "Colapso Total": 25,
+    "Fantasma": 25
+  }
+}
