@@ -102,7 +102,7 @@ class MetricsInput(BaseModel):
     cpu_usage:          float = Field(..., ge=0, le=100,    description="Uso de CPU (%)")
     memory_usage:       float = Field(..., ge=0, le=100,    description="Uso de memoria RAM (%)")
     network_traffic:    float = Field(..., ge=0,            description="Tráfico de red")
-    power_consumption:  float = Field(..., ge=0,            description="Consumo energético")
+    power_consumption:  float = Field(default=0.0, ge=0, description="Consumo energético (opcional)")
     execution_time:     float = Field(default=50.0, ge=0,   description="Tiempo de ejecución (opcional)")
     energy_efficiency:  float = Field(default=0.5,  ge=0, le=1, description="Eficiencia energética (opcional)")
 
