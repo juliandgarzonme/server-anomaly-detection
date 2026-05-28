@@ -31,7 +31,7 @@ import psutil
 import requests
 
 # ── Configuración ────────────────────────────────────────────────────
-WEBHOOK_URL = "http://localhost:5678/webhook-test/metrics"
+WEBHOOK_URL = "http://localhost:5678/webhook/metrics"
 INTERVAL    = 30      # segundos entre capturas
 TIMEOUT     = 5       # timeout de la petición HTTP en segundos
 
