@@ -56,6 +56,14 @@ def load_model() -> None:
         state["pipeline"] = artefacto
     log.info(f"Modelo listo: {MODEL_PATH}")
 
+    if os.path.exists(META_PATH):
+        import json
+        with open(META_PATH, encoding="utf-8") as f:
+            state["metadata"] = json.load(f)
+        log.info(f"Metadatos cargados: versión {state['metadata'].get('version')}")
+    else:
+        log.warning(f"Metadatos no encontrados en {META_PATH}")
+
 
 # ── Lifespan ─────────────────────────────────────────────────────────
 @asynccontextmanager
@@ -85,7 +93,6 @@ FEATURES = [
     "cpu_usage",
     "memory_usage",
     "network_traffic",
-    "power_consumption",
     "execution_time",
     "energy_efficiency",
 ]
@@ -168,7 +175,6 @@ def predict_single(metrics: MetricsInput) -> PredictionResponse:
         metrics.cpu_usage,
         metrics.memory_usage,
         metrics.network_traffic,
-        metrics.power_consumption,
         metrics.execution_time,
         metrics.energy_efficiency,
     ]])
