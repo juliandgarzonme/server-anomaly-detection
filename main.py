@@ -172,11 +172,11 @@ def predict_single(metrics: MetricsInput) -> PredictionResponse:
         raise HTTPException(status_code=503, detail="Modelo no disponible. Ejecuta el entrenamiento primero.")
 
     X = np.array([[
-    metrics.cpu_usage,
-    metrics.memory_usage,
-    metrics.network_traffic,
-    metrics.execution_time,
-    metrics.energy_efficiency,
+        metrics.cpu_usage,
+        metrics.memory_usage,
+        metrics.network_traffic,
+        metrics.execution_time,
+        metrics.energy_efficiency,
 ]])
 
     label = int(pipeline.predict(X)[0])
