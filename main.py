@@ -177,7 +177,7 @@ def predict_single(metrics: MetricsInput) -> PredictionResponse:
         metrics.network_traffic,
         metrics.execution_time,
         metrics.energy_efficiency,
-        ]])
+    ]])
 
     label = int(pipeline.predict(X)[0])
     score = float(pipeline.decision_function(X)[0])
