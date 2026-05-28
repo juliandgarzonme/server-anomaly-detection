@@ -1,51 +1,38 @@
 {
-  "version": "v20260528_030909",
-  "trained_at": "2026-05-28T03:09:09.997965+00:00",
-  "model_selected": "LOF",
-  "dataset_type": "real",
+  "version": "v20260528_135927",
+  "trained_at": "2026-05-28T13:59:28.026380+00:00",
+  "model_selected": "IsolationForest",
+  "dataset_type": "real_v2",
+  "changes_v2": [
+    "power_consumption excluida — 75% fijo en 50, no informativa",
+    "contamination reducida a 0.03 — balance óptimo detección/FP",
+    "Isolation Forest seleccionado sobre LOF — mejor escalabilidad con igual detección"
+  ],
   "dataset": {
-    "total_records": 5720,
+    "total_records": 6312,
     "sources": {
-      "tu_pc_windows": 5000,
+      "tu_pc_windows": 5594,
       "google_colab": 720
     },
     "features": [
       "cpu_usage",
       "memory_usage",
       "network_traffic",
-      "power_consumption",
       "execution_time",
       "energy_efficiency"
     ],
-    "preprocessing": "StandardScaler (sin imputaci\u00f3n \u2014 0 nulos en datos reales)"
+    "preprocessing": "StandardScaler sin imputación (0 nulos)"
   },
   "hyperparameters": {
-    "n_neighbors": 20,
-    "contamination": 0.05,
-    "novelty": true
+    "n_estimators": 200,
+    "contamination": 0.03,
+    "random_state": 42
   },
   "metrics": {
     "tasa_deteccion_pct": 100.0,
-    "falsos_positivos_pct": 4.46,
-    "precision_pct": 28.17,
-    "train_time_s": 0.2841,
-    "inf_ms_per_record": 0.0895
-  },
-  "comparison_vs_synthetic": {
-    "IF": {
-      "sint": 92.0,
-      "real": 100.0,
-      "mejora_pp": 8.0
-    },
-    "LOF": {
-      "sint": 99.0,
-      "real": 100.0,
-      "mejora_pp": 1.0
-    },
-    "SVM": {
-      "sint": 94.0,
-      "real": 100.0,
-      "mejora_pp": 6.0
-    }
+    "falsos_positivos_pct": 3.01,
+    "precision_pct": 34.48,
+    "train_time_s": 0.7083,
+    "inf_ms_per_record": 0.0203
   }
 }

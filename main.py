@@ -93,7 +93,6 @@ FEATURES = [
     "cpu_usage",
     "memory_usage",
     "network_traffic",
-    "power_consumption",
     "execution_time",
     "energy_efficiency",
 ]
@@ -173,13 +172,12 @@ def predict_single(metrics: MetricsInput) -> PredictionResponse:
         raise HTTPException(status_code=503, detail="Modelo no disponible. Ejecuta el entrenamiento primero.")
 
     X = np.array([[
-        metrics.cpu_usage,
-        metrics.memory_usage,
-        metrics.network_traffic,
-        metrics.power_consumption,
-        metrics.execution_time,
-        metrics.energy_efficiency,
-    ]])
+    metrics.cpu_usage,
+    metrics.memory_usage,
+    metrics.network_traffic,
+    metrics.execution_time,
+    metrics.energy_efficiency,
+]])
 
     label = int(pipeline.predict(X)[0])
     score = float(pipeline.decision_function(X)[0])
