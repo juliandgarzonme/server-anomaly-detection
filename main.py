@@ -56,6 +56,14 @@ def load_model() -> None:
         state["pipeline"] = artefacto
     log.info(f"Modelo listo: {MODEL_PATH}")
 
+    if os.path.exists(META_PATH):
+        import json
+        with open(META_PATH, encoding="utf-8") as f:
+            state["metadata"] = json.load(f)
+        log.info(f"Metadatos cargados: versión {state['metadata'].get('version')}")
+    else:
+        log.warning(f"Metadatos no encontrados en {META_PATH}")
+
 
 # ── Lifespan ─────────────────────────────────────────────────────────
 @asynccontextmanager

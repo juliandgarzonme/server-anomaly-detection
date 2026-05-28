@@ -1,6 +1,6 @@
 {
-  "version": "v20260528_013954",
-  "trained_at": "2026-05-28T01:39:54.411685+00:00",
+  "version": "v20260528_030909",
+  "trained_at": "2026-05-28T03:09:09.997965+00:00",
   "model_selected": "LOF",
   "dataset_type": "real",
   "dataset": {
@@ -28,8 +28,8 @@
     "tasa_deteccion_pct": 100.0,
     "falsos_positivos_pct": 4.46,
     "precision_pct": 28.17,
-    "train_time_s": 0.2091,
-    "inf_ms_per_record": 0.076
+    "train_time_s": 0.2841,
+    "inf_ms_per_record": 0.0895
   },
   "comparison_vs_synthetic": {
     "IF": {
